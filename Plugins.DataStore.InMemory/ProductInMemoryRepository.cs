@@ -15,7 +15,7 @@ namespace Plugins.DataStore.InMemory
         public ProductInMemoryRepository()
         {
             // Init with default values
-            // Checking contributions on github 3
+            // Checking contributions on github
             products = new List<Product>()
             {
                 new Product { ProductId = 1, CategoryId = 1, Name = "Ice Tea", Quantity = 100, Price = 1.59},
