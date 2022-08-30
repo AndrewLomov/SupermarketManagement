@@ -8,28 +8,28 @@
 
 @if (categories != null)
 {
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in categories)
+        {
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th></th>
+                <td>@category.Name</td>
+                <td>@category.Description</td>
+                <td>
+                    <button type="button" class="btn btn-link" @onclick="@(() => EditCategory(category))">Edit</button>
+                    <button type="button" class="btn btn-link" @onclick="@(() => DeleteCategory(category.CategoryId))">Delete</button>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in categories)
-            {
-                <tr>
-                    <td>@category.Name</td>
-                    <td>@category.Description</td>
-                    <td>
-                        <button type="button" class="btn btn-link" @onclick="@(() => EditCategory(category))">Edit</button>
-                        <button type="button" class="btn btn-link" @onclick="@(() => DeleteCategory(category.CategoryId))">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 }
 <br>
 <button type="button" class="btn btn-primary" @onclick="OnClickAddCategory">Add Category</button>
@@ -61,7 +61,7 @@
 
     private void DeleteCategory(int categoryId)
     {
-        DeleteCategoryUseCase.Delete(categoryId);
+        DeleteCategoryUseCase.Execute(categoryId);
         LoadCategories();
     }
 }

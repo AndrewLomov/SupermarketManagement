@@ -15,7 +15,6 @@ namespace Plugins.DataStore.InMemory
         public ProductInMemoryRepository()
         {
             // Init with default values
-            // Checking contributions on github
             products = new List<Product>()
             {
                 new Product { ProductId = 1, CategoryId = 1, Name = "Ice Tea", Quantity = 100, Price = 1.59},
@@ -42,6 +41,32 @@ namespace Plugins.DataStore.InMemory
         public IEnumerable<Product> GetProducts()
         {
             return products;
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            var productToUpdate = GetProductById(product.ProductId);
+            if (productToUpdate != null)
+            {
+                productToUpdate.Name = product.Name;
+                productToUpdate.CategoryId = product.CategoryId;
+                productToUpdate.Price = product.Price;
+                productToUpdate.Quantity = product.Quantity;
+            }
+        }
+
+        public Product GetProductById(int productId)
+        {
+            return products.FirstOrDefault(x => x.ProductId == productId);
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            var productToDelete = GetProductById(productId);
+            if (productToDelete != null)
+            {
+                products.Remove(productToDelete);
+            }
         }
     }
 }

@@ -2,33 +2,39 @@
 
 @inject IViewProductsUseCase ViewProductsUseCase
 @inject IGetCategoryByIdUseCase GetCategoryByIdUseCase
+@inject IDeleteProductUseCase DeleteProductUseCase
 @inject NavigationManager NavigationManager
 
 <h3>Products</h3>
 
 @if (products != null)
 {
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in products)
+        {
             <tr>
-                <th>Category</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
+                <td>@GetCategoryByIdUseCase.Execute(product.CategoryId.Value)?.Name</td>
+                <td>@product.Name</td>
+                <td>@Math.Round(product.Price.Value, 2)</td>
+                <td>@product.Quantity</td>
+                <td>
+                    <button type="button" class="btn btn-link" @onclick="@(() => OnEditProduct(product))">Edit</button>
+                    <button type="button" class="btn btn-link" @onclick="@(() => OnDeleteProduct(product.ProductId))">Delete</button>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in products)
-            {
-                <tr>
-                    <td>@GetCategoryByIdUseCase.Execute(product.CategoryId.Value)?.Name</td>
-                    <td>@product.Name</td>
-                    <td>@Math.Round(product.Price.Value, 2)</td>
-                    <td>@product.Quantity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 }
 <br>
 <button type="button" class="btn btn-primary" @onclick="OnClickAddProduct">Add Product</button>
@@ -46,5 +52,15 @@
     private void OnClickAddProduct()
     {
         NavigationManager.NavigateTo("/addproduct");
+    }
+
+    private void OnEditProduct(Product product)
+    {
+        NavigationManager.NavigateTo($"/editproduct/{product.ProductId}");
+    }
+
+    private void OnDeleteProduct(int productId)
+    {
+        DeleteProductUseCase.Execute(productId);
     }
 }

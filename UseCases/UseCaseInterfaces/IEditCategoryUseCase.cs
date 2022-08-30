@@ -4,6 +4,6 @@ namespace UseCases.UseCaseInterfaces
 {
     public interface IEditCategoryUseCase
     {
-        public void Execute(Category category);
+        void Execute(Category category);
     }
 }

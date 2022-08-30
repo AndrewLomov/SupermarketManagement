@@ -5,6 +5,6 @@ namespace UseCases.UseCaseInterfaces
 {
     public interface IViewCategoriesUseCase
     {
-        public IEnumerable<Category> Execute();
+        IEnumerable<Category> Execute();
     }
 }
