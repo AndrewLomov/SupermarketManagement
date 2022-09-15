@@ -33,6 +33,10 @@
     private Product productToSell;
     private string errorMessage;
 
+    //For now I let the cashier to enter his/her name. Later, he/she will use the authorization
+    [Parameter]
+    public string CashierName { get; set; }
+
     [Parameter]
     public Product SelectedProduct { get; set; }
 
@@ -62,6 +66,12 @@
 
     private void SellProduct()
     {
+        if (string.IsNullOrWhiteSpace(CashierName))
+        {
+            errorMessage = "Cashier's name is missing, cannot sell product";
+            return;
+        }
+
         var product = GetProductByIdUseCase.Execute(productToSell.ProductId);
 
         if (productToSell.Quantity <= 0)
@@ -72,7 +82,7 @@
         {
             OnProductSold.InvokeAsync(productToSell);
             errorMessage = string.Empty;
-            SellProductUseCase.Execute(productToSell.ProductId, productToSell.Quantity.Value);
+            SellProductUseCase.Execute(productToSell.ProductId, productToSell.Quantity.Value, CashierName);
         }
         else
         {
