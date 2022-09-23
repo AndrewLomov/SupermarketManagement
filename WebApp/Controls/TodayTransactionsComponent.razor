@@ -24,7 +24,7 @@
             <td>@tr.BeforeQuantity</td>
             <td>@tr.SoldQuantity</td>
             <td>@(tr.BeforeQuantity - tr.SoldQuantity)</td>
-            <td>@(string.Format("{0:c}", tr.SoldQuantity * tr.Price))</td>
+            <td>@((tr.SoldQuantity * tr.Price).ToString("C", Cultures.UnitedStates))</td>
         </tr>
         }
     </tbody>

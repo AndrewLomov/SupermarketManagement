@@ -11,6 +11,7 @@ namespace UseCases.DataStorePluginInterfaces
     {
         public IEnumerable<Transaction> Get(string cashierName);
         IEnumerable<Transaction> GetByDay(DateTime date, string cashierName);
+        IEnumerable<Transaction> GetByDateRange(DateTime startDate, DateTime endDate, string cashierName);
         void Save(int productId, string productName, double price, int beforeQuantity, int soldQuantity, string cashierName);
     }
 }
