@@ -14,6 +14,8 @@ using UseCases;
 using UseCases.UseCaseInterfaces;
 using UseCases.DataStorePluginInterfaces;
 using WebApp.Data;
+using Plugins.DataStore.SQL;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp
 {
@@ -33,6 +35,11 @@ namespace WebApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddDbContext<MarketContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("WebApp"));
+            });
 
             //Dependency Injection for In-Memory Data Store
             services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
