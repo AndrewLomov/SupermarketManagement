@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UseCases.DataStorePluginInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Plugins.DataStore.SQL
 {
@@ -33,7 +34,7 @@ namespace Plugins.DataStore.SQL
             {
                 return transactionsTimeStamp;
             }
-            return transactionsTimeStamp.Where(x => x.CashierName.ToLower() == cashierName.ToLower());
+            return transactionsTimeStamp.Where(x => EF.Functions.Like(x.CashierName, $"%{cashierName}%"));
         }
 
         public IEnumerable<Transaction> GetByDay(DateTime date, string cashierName)
@@ -43,7 +44,7 @@ namespace Plugins.DataStore.SQL
             {
                 return transactionsTimeStamp;
             }
-            return transactionsTimeStamp.Where(x => x.CashierName.ToLower() == cashierName.ToLower());
+            return transactionsTimeStamp.Where(x => EF.Functions.Like(x.CashierName, $"%{cashierName}%"));
         }
 
         public void Save(int productId, string productName, double price, int beforeQuantity, int soldQuantity, string cashierName)

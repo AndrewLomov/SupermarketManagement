@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreBusiness;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.UseCaseInterfaces;
 
 namespace UseCases
 {
