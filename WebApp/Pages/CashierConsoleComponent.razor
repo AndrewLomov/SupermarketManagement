@@ -8,7 +8,7 @@
     <div class="col-2"><label for="cashier">Cashier name:</label></div>
     <div class="col-3">
         <div class="form-group">
-            <input class="form-control" type="text" id="cashier" @bind-value="cashierName"/>
+            <input class="form-control" type="text" readonly id="cashier" @bind-value="cashierName"/>
         </div>
     </div>
 </div>
@@ -22,6 +22,7 @@
         <SellProductComponent SelectedProduct="selectedProduct" OnProductSold="SellProduct" CashierName="@cashierName"></SellProductComponent>
     </div>
     <div class="col">
+        <br />
         <TodayTransactionsComponent @ref="transactionComponent"></TodayTransactionsComponent>
     </div>
 </div>
